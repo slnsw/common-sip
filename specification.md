@@ -88,9 +88,9 @@ Another common option is to use a catalogue record identifier. If you use multip
 
 The MD5 values contained in the bag manifest should be carried all the way through to ingestion in the digital preservation system and should be used by the digital preservation system to verify fixity of files at the completion of ingest.
 
-Any additional fields in bag-info.txt will be ignored except for the purpose of contributing to the overall file hash value during checksum validation when bag-info.txt is listed in tagmanifest-md5.txt as part of a standard bag validation process.
+Any additional fields in bag-info.txt should be ignored except for the purpose of contributing to the overall file hash value during checksum validation when bag-info.txt is listed in tagmanifest-md5.txt as part of a standard bag validation process.
 
-This specification does not support BagIt fetch files or any additional tag files not specified in this section. If any other tag files are provided, they will be ignored unless listed in tagmanifest-md5.txt in which they will be checksum verified as part of a standard bag validation process but otherwise ignored. Any directories aside from the data directory and its descendant directories will be ignored.
+This specification does not support BagIt fetch files or any additional tag files not specified in this section. If any other tag files are provided, they should be ignored unless listed in tagmanifest-md5.txt in which they should be checksum verified as part of a standard bag validation process but otherwise ignored. Any directories aside from the data directory and its descendant directories should be ignored.
 
 This specification does not support groups of bags using Bag-Group-Identifier or any other mechanism.
 
@@ -167,12 +167,12 @@ The IE sheet must at a minimum include at least one of:
     -   Three formats are acceptable:
         -   **urn:\<NAMESPACE IDENTIFIER\>:\<NAMESPACE SPECIFIC STRING\>**
             -   URN stands for Uniform Resource Name, see glossary.
-            -   Please only use registered namespaces <https://www.iana.org/assignments/urn-namespaces/urn-namespaces.xhtml>
+            -   Only use registered namespaces <https://www.iana.org/assignments/urn-namespaces/urn-namespaces.xhtml>
         -   **\<NAMESPACE IDENTIFIER\>:\<NAMESPACE SPECIFIC STRING\>**
-            -   Instead of using an unregistered URN namespace, please use this format without the URN prefix for identifiers using unregistered namespaces.
+            -   Instead of using an unregistered URN namespace, use this format without the URN prefix for identifiers using unregistered namespaces.
         -   A URL (Uniform Resource Locator)
     -   Some examples:
-        -   <https://collection.sl.nsw.gov.au/record/jhdjhkwd7/>
+        -   https://collection.sl.nsw.gov.au/record/74VK2qGA4MGA
         -   urn:isbn:0451450523
         -   alma_mms_id:991007066609702626
         -   alma_barcode:2758396
