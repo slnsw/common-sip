@@ -74,17 +74,17 @@ Another common option is to use a catalogue record identifier. If you use multip
 
 ### BagIt Files (M)
 
-**(M)** data/ -- the payload
-**(M)** bagit.txt -- Contains BagIt version and tag file character encoding.
-**(M)** manifest-md5.txt -- Manifest payload files with md5 checksums.
-tagmanifest-md5.txt -- Manifest of tag files with md5 checksums.
-**(M)** bag-info.txt -- Metadata, for DRF we will be using these fields:
--   Source-Organization -- use your agency acronym
--   Contact-Name -- use your full name.
--   Bagging-Date -- bagging software should generate this.
--   Bag-Size -- bagging software should generate this.
--   **(M)** Payload-Oxum -- bagging software should generate this.
--   Version -- common SIP spec version, if not provided the latest version is assumed.
+- **(M)** data/ -- the payload
+- **(M)** bagit.txt -- Contains BagIt version and tag file character encoding.
+- **(M)** manifest-md5.txt -- Manifest payload files with md5 checksums.
+- tagmanifest-md5.txt -- Manifest of tag files with md5 checksums.
+- **(M)** bag-info.txt -- Metadata, for DRF we will be using these fields:
+  - Source-Organization -- use your agency acronym
+  - Contact-Name -- use your full name.
+  - Bagging-Date -- bagging software should generate this.
+  - Bag-Size -- bagging software should generate this.
+  - **(M)** Payload-Oxum -- bagging software should generate this.
+  - Version -- common SIP spec version, if not provided the latest version is assumed.
 
 The MD5 values contained in the bag manifest will be carried all the way through to ingestion in the digital preservation system and will be used to verify fixity of files at the completion of ingest.
 
