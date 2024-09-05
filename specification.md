@@ -35,7 +35,7 @@ Everything else is optional. In spreadsheets with optional columns, if some of t
 
 Sheets and columns are generally not repeatable. For repeatability of metadata provided in rows refer to the standard if one exists, otherwise they are generally repeatable.
 
-Refer to standards (Dublin Core, PREMIS, etc) for allowed values and formats. In some cases when using fields from a standard I try and provide guidance by linking to controlled vocabularies but in general refer to the standard for supported values. For fields not part of an existing standard or where this specification further resticts, allowed values or a regular expression may be specified surrounded by single quotes **' '**. PCRE is used for regular expressions. 
+Refer to standards (Dublin Core, PREMIS, etc) for allowed values and formats. In some cases when using fields from a standard we try and provide guidance by linking to controlled vocabularies but in general refer to the standard for supported values. For fields not part of an existing standard or where this specification further resticts, allowed values or a regular expression may be specified surrounded by single quotes **' '**. PCRE is used for regular expressions. 
 Placeholders are surrounded by chevrons **<>**, literal values around placeholders are written without any special formatting.
 
 Always use UTF-8 for character encoding in the tag files and with any data in the xlsx files. This encoding restriction does not apply to text files in representation directories being preserved which can be in any encoding.
@@ -86,7 +86,7 @@ Another common option is to use a catalogue record identifier. If you use multip
   - **(M)** Payload-Oxum -- bagging software should generate this.
   - Version -- common SIP spec version, if not provided the latest version is assumed.
 
-The MD5 values contained in the bag manifest will be carried all the way through to ingestion in the digital preservation system and will be used to verify fixity of files at the completion of ingest.
+The MD5 values contained in the bag manifest should be carried all the way through to ingestion in the digital preservation system and should be used by the digital preservation system to verify fixity of files at the completion of ingest.
 
 Any additional fields in bag-info.txt will be ignored except for the purpose of contributing to the overall file hash value during checksum validation when bag-info.txt is listed in tagmanifest-md5.txt as part of a standard bag validation process.
 
