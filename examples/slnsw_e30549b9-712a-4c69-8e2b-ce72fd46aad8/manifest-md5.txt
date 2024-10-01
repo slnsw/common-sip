@@ -1,0 +1,2 @@
+6d77c15cc77af1e60665765965677644  data/slnsw_e30549b9-712a-4c69-8e2b-ce72fd46aad8.xlsx
+0e38bbdd8b4cffab3c5c2b202303c218  data/preservation_master/file.tif

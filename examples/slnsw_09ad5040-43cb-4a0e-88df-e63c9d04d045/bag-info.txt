@@ -1,0 +1,6 @@
+Bag-Software-Agent: bagit.py v1.8.1 <https://github.com/LibraryOfCongress/bagit-python>
+Bagging-Date: 2024-10-01
+Payload-Oxum: 521485.13
+Contact-Name: Peter Brotherton
+Source-Organization: SLNSW
+Version: 0.6
