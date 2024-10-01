@@ -4,8 +4,8 @@
 
 | Document Control       |            |
 |------------------------|------------|
-| Specification Version: | 0.5        |
-| Date:                  | 2024-07-19 |
+| Specification Version: | 0.6        |
+| Date:                  | 2024-10-01 |
 | Status:                | Final      |
 
 ## Overview
@@ -108,7 +108,7 @@ These are the key principles we were working under:
 -   METS structural maps are not designed to be a replacement for maintaining/recreating directory structures where they are important for preservation or rendering.
 -   METS structural maps are also not designed to be used to model relationships between files aside from the basic groupings under div elements.
 -   A single METS structural map can theoretically contain files from multiple PREMIS representations, but this specification does not support it.
--   Our usage of FILEID is technically incorrect and so the structural map will not validate if we have directory separator forward slashes in any of the FILEID fields. This does not matter as the digital preservation system should generate a fuller METS file with file sections and use these for the FILEID fields at which point it will be validated.
+-   Our usage of FILEID is technically incorrect and so the structural map will not validate if we have directory separator forward slashes in any of the FILEID fields. This does not matter as the digital preservation system should generate a fuller METS file with file sections and use these for the FILEID fields.
 
 ### Descriptive metadata assumptions and decisions
 
@@ -132,7 +132,7 @@ One method to try and avoid some of these issues is to standardise the filenames
 
 If standardising and you are unsure of the best approach, try these conventions:
 
--   Contain lower-case letters, numbers, dots, underscores, or dashes. (a--z0--9.\_-)
+-   Contain lower-case letters, numbers, fullstops, underscores, or dashes.
 -   MUST NOT begin with a dash. (-)
 -   MUST NOT contain whitespaces
 -   MUST be at least 1 character in length.
