@@ -1,0 +1,13 @@
+9bef609ed01b241a6a515b5b85ac13f7  data/screen_structmaps.xml
+0ee7274d35f710592cf3150d99ba93bf  data/slnsw_09ad5040-43cb-4a0e-88df-e63c9d04d045.xlsx
+0e38bbdd8b4cffab3c5c2b202303c218  data/comaster/e64961_0001_c.tif
+2deec2a2e1c08a48977ad8050854fdec  data/comaster/e64961_0002_c.tif
+2b15dc7a8acb603382288293423d3739  data/comaster/e64961_0003_c.tif
+0e38bbdd8b4cffab3c5c2b202303c218  data/preservation_master/e64961_0001_m.tif
+2deec2a2e1c08a48977ad8050854fdec  data/preservation_master/e64961_0002_m.tif
+12f1d8500f4d2847d1cf082a4610cf9e  data/preservation_master/e64961_0003_m.tif
+c14825488fb5d8b5a32d3a33365a84ac  data/preservation_master/representation_information/TIFF6.pdf
+509ed120d1b4ef497ed35a2b24155ba6  data/screen/e64961_0001_c.jpg
+4aba7178f8918e2ca933d898f2d162ec  data/screen/e64961_0002_c.jpg
+c5890ebc1d2fb53ea55b700179cdc46a  data/screen/e64961_0003_c.jpg
+2297c373d75ec8881a605e613378ab1a  data/screen/sub_dir_test/artist_notes.txt

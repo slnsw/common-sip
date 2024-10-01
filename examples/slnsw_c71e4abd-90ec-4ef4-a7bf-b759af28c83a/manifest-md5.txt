@@ -1,0 +1,5 @@
+69fc6bdbc7f5957169b4c4fcf4408125  data/slnsw_c71e4abd-90ec-4ef4-a7bf-b759af28c83a.xlsx
+30974f0993b4b1c6b1e14f2d3515305a  data/preservation_master/index.html
+0ae17aceb9e2a58fcb2d2020f32cbf14  data/preservation_master/css/styles.css
+509ed120d1b4ef497ed35a2b24155ba6  data/preservation_master/images/file1.jpg
+c1b5dbd661ebb9f6f5f7761a6359c713  data/preservation_master/js/script.js

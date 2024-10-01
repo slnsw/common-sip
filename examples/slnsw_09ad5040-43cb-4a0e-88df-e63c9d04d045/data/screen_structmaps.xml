@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mets:mets xmlns:mets="http://www.loc.gov/METS/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.loc.gov/METS/ http://www.loc.gov/standards/mets/mets.xsd" LABEL="Petes Numbers">
+	<mets:structMap TYPE="logical" LABEL="Intellectual grouping">
+		<mets:div LABEL="Petes Numbers">
+			<mets:div LABEL="First two numbers">
+				<mets:div LABEL="1.">
+					<mets:fptr FILEID="e64961_0001_c.jpg"/>
+				</mets:div>
+				<mets:div LABEL="2.">
+					<mets:fptr FILEID="e64961_0002_c.jpg"/>
+				</mets:div>
+			</mets:div>
+			<mets:div LABEL="Extra stuff">
+				<mets:div LABEL="3.">
+					<mets:fptr FILEID="e64961_0003_c.jpg"/>
+				</mets:div>
+				<mets:div LABEL="Artists notes">
+					<mets:fptr FILEID="sub_dir_test/artist_notes.txt"/>
+				</mets:div>
+			</mets:div>
+		</mets:div>
+	</mets:structMap>
+	<mets:structMap TYPE="logical" LABEL="Simple ordering">
+		<mets:div LABEL="Petes Numbers">
+			<mets:div LABEL="1.">
+				<mets:fptr FILEID="e64961_0001_c.jpg"/>
+			</mets:div>
+			<mets:div LABEL="2.">
+				<mets:fptr FILEID="e64961_0002_c.jpg"/>
+			</mets:div>
+		
+			<mets:div LABEL="3.">
+				<mets:fptr FILEID="e64961_0003_c.jpg"/>
+			</mets:div>
+			<mets:div LABEL="Artists notes">
+				<mets:fptr FILEID="sub_dir_test/artist_notes.txt"/>
+			</mets:div>
+		</mets:div>
+	</mets:structMap>
+</mets:mets>
+

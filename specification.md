@@ -4,8 +4,8 @@
 
 | Document Control       |            |
 |------------------------|------------|
-| Specification Version: | 0.5         |
-| Date:                  | 2024-07-19 |
+| Specification Version: | 0.6        |
+| Date:                  | 2024-10-01 |
 | Status:                | Final      |
 
 ## About this specification
@@ -111,8 +111,6 @@ A single metadata spreadsheet directly in the data directory named using the sam
 - PREMIS_IE_rights
 - PREMIS_Rep_events
 - PREMIS_Rep_significant_props
-- PREMIS_Rep_creating_app
-- PREMIS_Rep_inhibitors
 - PREMIS_Rep_rights
 - PREMIS_Files_events
 - PREMIS_Files_significant_props
@@ -234,7 +232,7 @@ The following fields are supported in this sheet:
 md_field must be from the following controlled vocabulary:
 
 -   **'destination_path'**
-    -   The path where the AIP will be stored. Provided as a file system path with forward slash as the separator.
+    -   The path where the AIP should be stored. Provided as a file system path with forward slash as the separator.
     -   For example, a valid path is: /digitised/manuscripts/banks/voyage_collection/series_1/
     -   The level of support and implementation details are DP system specific and outside the scope of this specification.
     -   If not provided the DP system will need to decide where to store the AIP, it could be a default location or perhaps based on date of ingest. These details are DP system specific and outside the scope of this specification.
@@ -265,13 +263,13 @@ The rep_path value must be the name of the **\<representation_name\>** directory
 md_field must be from the following controlled vocabulary:
 
 -   **'bitstream_preservation_level'**
-    -   Values allowed are **'low'**, **'medium'** and **'high'**. This will be used for two purposes:
+    -   Values allowed are **'low'**, **'medium'** and **'high'**. This should be used for two purposes:
         -   Recording in PREMIS preservationLevel
-        -   As an indication of how many copies and are needed, the level of copy independence required and the level of integrity checking required. In general, there is no guarantee that a specific number of copies will be achievable or that full technological, organisational and geographical independence will be achieved. These decisions have major cost implications which need to be considered by project teams. These decisions are outside the scope of this specification.
+        -   As an indication of how many copies are needed, the level of copy independence required and the level of integrity checking required. In general, there is no guarantee that a specific number of copies will be achievable or that full technological, organisational and geographical independence will be achieved. These decisions have major cost implications which need to be considered by project teams. These decisions are outside the scope of this specification.
     -   If not provided, defaults to **'high'**.
     -   In general, the higher the level the higher the cost.
 -   **'cold_storage_only'**
-    -   Values allowed are **'true'** and **'false'**, if not provided defaults to **'false'**. If **'true'**, the contents of this representation will be preserved in cold storage only. This has implications including:
+    -   Values allowed are **'true'** and **'false'**, if not provided defaults to **'false'**. If **'true'**, the contents of this representation should be preserved in cold storage only. This has implications including:
         -   Defrost needed before any recharacterisation or preservation actions are performed on files. These defrost operations may incur a cost and will take time.
         -   Defrost of the entire repository will be needed for exit strategy, this may delay exit or migration to another system and may incur a significant cost.
         -   Possible impacts to the viability, speed and cost of rolling integrity checking.
@@ -279,7 +277,7 @@ md_field must be from the following controlled vocabulary:
 
 **PREMIS Metadata**
 
-Based on PREMIS 3.0 <https://www.loc.gov/standards/premis/v3/premis-3-0-final.pdf.> PREMIS has a concept of containers *\"In some cases a semantic unit takes the form of a container that groups a set of related semantic units."* This concept is difficult to replicate directly in spreadsheets. To eliminate any ambiguity the PREMIS semantic unit number and hierarchy has been provided for each field. A consequence of this container concept and its translation to spreadsheet form is that some fields marked as optional in this common SIP specification make no sense without other fields to provide context, these cases are mostly obvious but refer to the PREMIS data dictionary if there is any doubt.
+Based on PREMIS 3.0 <https://www.loc.gov/standards/premis/v3/premis-3-0-final.pdf> PREMIS has a concept of containers *\"In some cases a semantic unit takes the form of a container that groups a set of related semantic units."* This concept is difficult to replicate directly in spreadsheets. To eliminate any ambiguity the PREMIS semantic unit number and hierarchy has been provided for each field. A consequence of this container concept and its translation to spreadsheet form is that some fields marked as optional in this common SIP specification make no sense without other fields to provide context, these cases are mostly obvious but refer to the PREMIS data dictionary if there is any doubt.
 
 #### PREMIS_Agents
 
@@ -301,7 +299,7 @@ A sheet to define PREMIS agents which are referenced in events with the followin
 
 #### PREMIS_IE_external_identifiers
 
-A sheet to record URLs which link to the external description of the IE, typically a catalogue record. These will be added as secondary objectIdentifiers on the IE in addition to the primary unique identifier generated by the digital preservation system. The sheet supports a single column:
+A sheet to record URLs which link to the external description of the IE, typically a catalogue record. These should be added as secondary objectIdentifiers on the IE in addition to the primary unique identifier generated by the digital preservation system. The sheet supports a single column:
 -   URL
 
 See the example in PREMIS data dictionary on pages 10/11 and the supplement document for more information.
@@ -457,39 +455,6 @@ A sheet to record the significant properties of specific representations with th
     -   **\<representation_name\>** on disk
 -   See IE_significant_properties for other columns also applicable here
 
-#### PREMIS_Rep_creating_app
-
-*["]{.underline}Information about the application that created the object." <https://www.loc.gov/standards/premis/v3/premis-3-0-final.pdf>*
-
-A sheet to record the creating application for specific representations with the following columns:
-
--   rep_path **\[m\]**
-    -   **\<representation_name\>** on disk
--   creating_application_name
-    -   Semantic unit 1.5.5.1 objectCharacteristics=\>creatingApplication=\>creatingApplicationName
--   creating_application_version
-    -   Semantic unit 1.5.5.2 objectCharacteristics=\>creatingApplication=\>creatingApplicationVersion
-
-#### PREMIS_Rep_inhibitors
-
-*["]{.underline}Inhibitors are defined as any features of an object intended to inhibit access, use, or migration. Inhibitors include password protection and encryption. It is difficult to describe inhibitors by program, because the program may be prevented from analyzing the object, so if you know a file has inhibitors, it is important to note this. PREMIS defines semantic units for inhibitor type, target (the actions that are inhibited), and key (password or other mechanism to bypass the inhibitor)." <https://www.loc.gov/standards/premis/understanding-premis.pdf>*
-
-A sheet to record the inhibitors for specific representations with the following columns:
-
--   rep_path **\[m\]**
-    -   **\<representation_name\>** on disk
--   inhibitor_type **\[m\]**
-    -   Semantic unit 1.5.6.1 objectCharacteristics=\>inhibitors=\>inhibitorType
-    -   Taken from controlled vocabulary [**https://id.loc.gov/vocabulary/preservation/inhibitorType.html**](https://id.loc.gov/vocabulary/preservation/inhibitorType.html)
--   inhibitor_target
-    -   Semantic unit 1.5.6.2 objectCharacteristics=\>inhibitors=\>inhibitorTarget
-    -   Taken from controlled vocabulary [**https://id.loc.gov/vocabulary/preservation/eventType.html**](https://id.loc.gov/vocabulary/preservation/eventType.html)
-    -   This value only makes sense if inhibitor_type is provided
--   inhibitor_key
-    -   Semantic unit 1.5.6.3 objectCharacteristics=\>inhibitors=\>inhibitorKey
-    -   **Do not use an actual key or password!** Data will not be encrypted at rest in the preservation system. Instead provide a description of where it can be found by an authorised user.
-    -   This value only makes sense if inhibitor_type is provided
-
 #### PREMIS_Rep_rights
 
 A sheet to record the rights as they apply to specific representations with the following columns:
@@ -518,23 +483,40 @@ A sheet to record the significant properties of specific files with the followin
     -   relative path to file on disk from data directory
 -   See IE_significant_properties for other columns also applicable here
 
-PREMIS defines significant properties as *"Characteristics of a particular object **subjectively** determined to be important to maintain through preservation actions."* Significant properties in this sheet will be interpreted following the PREMIS definition, this can include both technical metadata and other significant properties of the file.
+PREMIS defines significant properties as *"Characteristics of a particular object **subjectively** determined to be important to maintain through preservation actions."* Significant properties in this sheet should be interpreted following the PREMIS definition, this can include both technical metadata and other significant properties of the file.
 
 #### PREMIS_Files_creating_app
+
+*"Information about the application that created the object." <https://www.loc.gov/standards/premis/v3/premis-3-0-final.pdf>*
 
 A sheet to record the creating application for specific files with the following columns:
 
 -   file_path **\[m\]**
     -   relative path to file on disk from data directory
--   See Rep_creating_application for other columns also applicable here
+-   creating_application_name
+    -   Semantic unit 1.5.5.1 objectCharacteristics=\>creatingApplication=\>creatingApplicationName
+-   creating_application_version
+    -   Semantic unit 1.5.5.2 objectCharacteristics=\>creatingApplication=\>creatingApplicationVersion
 
 #### PREMIS_Files_inhibitors
+
+*"Inhibitors are defined as any features of an object intended to inhibit access, use, or migration. Inhibitors include password protection and encryption. It is difficult to describe inhibitors by program, because the program may be prevented from analyzing the object, so if you know a file has inhibitors, it is important to note this. PREMIS defines semantic units for inhibitor type, target (the actions that are inhibited), and key (password or other mechanism to bypass the inhibitor)." <https://www.loc.gov/standards/premis/understanding-premis.pdf>*
 
 A sheet to record the inhibitors for specific files with the following columns:
 
 -   file_path **\[m\]**
     -   relative path to file on disk from data directory
--   See Rep_inhibitors for other columns also applicable here
+-   inhibitor_type **\[m\]**
+    -   Semantic unit 1.5.6.1 objectCharacteristics=\>inhibitors=\>inhibitorType
+    -   Taken from controlled vocabulary [**https://id.loc.gov/vocabulary/preservation/inhibitorType.html**](https://id.loc.gov/vocabulary/preservation/inhibitorType.html)
+-   inhibitor_target
+    -   Semantic unit 1.5.6.2 objectCharacteristics=\>inhibitors=\>inhibitorTarget
+    -   Taken from controlled vocabulary [**https://id.loc.gov/vocabulary/preservation/eventType.html**](https://id.loc.gov/vocabulary/preservation/eventType.html)
+    -   This value only makes sense if inhibitor_type is provided
+-   inhibitor_key
+    -   Semantic unit 1.5.6.3 objectCharacteristics=\>inhibitors=\>inhibitorKey
+    -   **Do not use an actual key or password!** Instead provide a description of where the key or password can be found by an authorised user.
+    -   This value only makes sense if inhibitor_type is provided
 
 #### PREMIS_Files_original_name
 
@@ -544,9 +526,9 @@ A sheet to record the original names for specific files with the following colum
     -   relative path to file on disk from data directory
 -   original_name **\[m\]**
     -   Semantic unit 1.6 originalName
-    -   original filename if different to that on disk. This can be a path or a filename. If a path it must be the full path relative from the data directory which means it starts with **\<representation_name\>/**. This will be stored in PREMIS originalName for provenance and may also be useful in the future for reproducing the original directory and filenames.
+    -   original filename if different to that on disk. This can be a path or a filename. If a path it must be the full path relative from the data directory which means it starts with **\<representation_name\>/**. This should be stored in PREMIS originalName for provenance and may also be useful in the future for reproducing the original directory and filenames.
     -   Cannot include parent directory symbol \'../\'
-    -   Using UTF-8 encoding in the XLSX file is very important here as the characters in UTF-8 encoding are what you are indicating you want preserved. This will be interpreted as UTF-8 so if you use a different encoding the characters may differ!
+    -   Using UTF-8 encoding in the XLSX file is very important here as the characters in UTF-8 encoding are what you are indicating you want preserved. This should be interpreted as UTF-8 so if you use a different encoding the characters may differ!
 
 #### PREMIS_Files_rights
 
@@ -575,7 +557,7 @@ These are useful in cases where a more complicated arrangement or grouping of fi
 
 ### Representation directories
 
-**(M)** At least one **\<representation_name\>/** directory is required with at least one file. It is recommended that **\<representation_name\>** itself should be limited to the standard characters as defined in *File and directory naming* in the *DRF_Common_SIP_Specification_Supplement*
+**(M)** At least one **\<representation_name\>/** directory is required with at least one file. It is recommended that **\<representation_name\>** itself should be limited to the standard characters as defined in *File and directory naming* in the [supplementary document](supplement.md)
 
 The data/**\<representation_name\>/** directories contains the files for preservation. In the above diagram, the files are in a flat directory structure however this specification does allow nested directories\*.
 
@@ -589,9 +571,9 @@ Change nothing, store and name the files within the **\<representation_name\>/**
 
 **Option two**
 
-Standardise file/directory names and/or flatten directory hierarchy on disk and provide original_name metadata in the combined metadata spreadsheet under PREMIS_Files_original_name to include the original directory structure and/or filename. It is also best to record the renaming in the SIP as a PREMIS event. This original_name metadata may be used at some point in the future to rename the file back to its original name, if/when/how that occurs is outside the scope of this document but recording the original name here gives you the option.
+Standardise file/directory names and/or flatten directory hierarchy on disk and provide original_name metadata in the metadata spreadsheet under PREMIS_Files_original_name to include the original directory structure and/or filename. It is also best to record the renaming in the SIP as a PREMIS event. This original_name metadata may be used at some point in the future to rename the file back to its original name, if/when/how that occurs is outside the scope of this document but recording the original name here gives you the option.
 
-This specification doesn't impose any restrictions on directory and file naming within the representation directories so option one is always allowed even with non-standard characters. Option two may be considered when you have directories or files with problematic characters to ensure they are maintained as SIPs are processed and moved between file systems. If considering option two see *File and directory naming* in the *DRF_Common_SIP_Specification_Supplement* for more details and some suggestions. In general, it is not advisable to rename files or directories unless necessary.
+This specification doesn't impose any restrictions on directory and file naming within the representation directories so option one is always allowed even with non-standard characters. Option two may be considered when you have directories or files with problematic characters to ensure they are maintained as SIPs are processed and moved between file systems. If considering option two see *File and directory naming* in the [supplementary document](supplement.md) for more details and some suggestions. In general, it is not advisable to rename files or directories unless necessary.
 
 **Option three**
 
@@ -605,7 +587,7 @@ The data/**\<representation_name\>**/representation_information/ directory is a 
 
 Environment objects and representation information networks are not supported by this specification. Further analysis and manual preparation will need to be conducted for these more complex examples of representation information.
 
-It is recommended that filenames within this directory be restricted to standard characters as defined in *File and directory naming* in the *DRF_Common_SIP_Specification_Supplement* unless maintaining these filenames is important for preservation or provenance. Note that there is no support in this specification for recording the original names of files within representation_information.
+It is recommended that filenames within this directory be restricted to standard characters as defined in *File and directory naming* in the [supplementary document](supplement.md) unless maintaining these filenames is important for preservation or provenance. Note that there is no support in this specification for recording the original names of files within representation_information.
 
 ## References
 Anderson, R. (2013). The Moab Design for Digital Object Versioning. The Code4Lib Journal, 21. https://journal.code4lib.org/articles/8482
@@ -689,7 +671,7 @@ uuidgen(1)—Linux manual page. (n.d.). Retrieved September 5, 2024, from https:
 
 **BagIt**: A hierarchical file packaging format for storage and transfer of digital content.
 
-**Bitstream preservation**: Ensuring that data does not change and is available, that all bits remain fixed and accessible from the point of submission until replacement, conversion, or deletion.
+**Bitstream preservation**: Ensuring that data does not change, that all bits remain fixed.
 
 **Content preservation:** Preserving the meaning of the files and ability to render the files. In OAIS terms ensuring that the designated community of the repository can render and understand the content data object with the help of representation information.
 
@@ -701,7 +683,7 @@ uuidgen(1)—Linux manual page. (n.d.). Retrieved September 5, 2024, from https:
 
 **OAIS:** Open Archival Information System. A conceptual framework which documents a functional model and an informational model used widely by digital preservation repositories.
 
-**METS:** Metadate Encoding &Transmission Standard. The METS schema is a standard test for encoding descriptive, administrative, and structural metadata regarding objects within a digital library, expressed using the XML schema language of the World Wide Web Consortium
+**METS:** Metadate Encoding &Transmission Standard. The METS schema is a standard for encoding descriptive, administrative, and structural metadata regarding objects within a digital library, expressed using the XML schema language of the World Wide Web Consortium
 
 **POSIX:** The Portable Operating System Interface is a family of standards specified by the IEEE Computer Society for maintaining compatibility between operating systems.
 
