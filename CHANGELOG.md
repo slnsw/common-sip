@@ -5,13 +5,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [0.6.0] - 2024-10-01
+## [0.7.0] - 2025-10-21
 
 ### Added
 
 ### Changed
 
-### Deprecated
+- Rewrote large parts of the file renaming recommendations and moved them out of the specification and into the supplement.
+
+### Removed
+
+- PREMIS_Files_original_name - reserved by DP systems
+
+### Fixed
+
+
+## [0.6.0] - 2024-10-01
 
 ### Removed
 

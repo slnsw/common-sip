@@ -122,15 +122,15 @@ These are the key principles we were working under:
 
 BagIt is file system neutral so files can be stored on any filesystem. This presents challenges for as different filesystems have different constraints and structures. For example, Apple DOS 3.3 has a maximum filename length of 30 chars/bytes whereas with FAT32 in DOS the maximum is 11 chars/bytes. Other aspects with differences between filesystems include character set/encoding, case preservation/sensitivity and reserved characters.
 
-Due to these differences copying files between filesystems can lead to unpredictable and undesirable results. Some file copying applications can help if they support the conversion of encodings but in general this requires knowing the encodings of the source and destination filesystems.
+Due to these differences copying files between filesystems (such as when transferring and processes SIPs) can lead to unpredictable and undesirable results. Some file copying applications can help if they support the conversion of encodings but in general this requires knowing the encodings of the source and destination filesystems.
 
-It is also worth considering that this conversion could change the underlying bytes of the filenames but in general we are more interested in preserving the filename characters than the bytes themselves (note this is different when preserving contents of files, where the bytes need to be maintained!).
+It is also worth considering that this conversion could change the underlying bytes of the filenames but in general we are more interested in the filename characters than the bytes themselves (note this is different when preserving contents of files, where the bytes need to be maintained!).
 
-Assuming you want to preserve the filename characters (likely), even if you carefully convert encodings intelligently during transfers this will not avoid all issues such as different filename length restrictions.
+SIP processing might break if filenames and/or paths change. If the digital preservation system cannot find the file referenced in the SIP, SIP processing will either fail or you could even potentially lose the metadata depending on how the digital preservation system handles this error.
 
-One method to try and avoid some of these issues is to standardise the filenames in representation directories into a format which is widely supported across most filesystems. This approach requires renaming any files which do not conform to the standard. This can cause problems with the rendering of complex objects with file relationships that depend on the original directory and filenames. If this method is used, the renaming events should be recorded, and the original directory and filename should be documented in the PREMIS\_Files\_original\_name sheet as documented in the specification. Keep in mind that with this method when exporting the original directory and filename structures it will have to be exported to a filesystem compatible with the original recorded names.
+You may be able to maintain the correct filename characters if you carefully convert encodings intelligently during transfers but this will not avoid all issues such as different filename length restrictions.
 
-If standardising and you are unsure of the best approach, try these conventions:
+One method to try and avoid some of these issues is to standardise the filenames in representation directories into a format which is widely supported across most filesystems. This approach requires renaming any files which do not conform to the standard. Here is an example of a convention you might use:
 
 -   Contain lower-case letters, numbers, fullstops, underscores, or dashes.
 -   MUST NOT begin with a dash. (-)
@@ -139,8 +139,13 @@ If standardising and you are unsure of the best approach, try these conventions:
 -   Filename MUST BE restricted to 255 bytes
 -   Entire path MUST BE restricted to 1024 bytes in length including any file extension
 
-In general, it is not advisable to rename files or directories unless necessary. And in general, if renaming it is advisable to record the original names. However, it\'s a complicated topic and renaming non-standard characters is worth discussing and considering but should not be done lightly and without good reason.
+In any case it is up to you to do rigorous testing of your workflows and systems to ensure all files and metadata in your SIPs are safely stored in your digital preservation system.
 
-Another method which could avoid some of these issues is to use an archive file or disk image, there is nothing in this specification which prohibits this, but it is a complicated topic outside the scope of this document.
+If you do decide to normalise, you should consider that the original directory structure and filenames can be important for preservation and rendering. Therefore you should record a PREMIS filename change event for provenance. This event should include the original filename recorded in a separate metadata element by repeating event_detail. This original filename metadata may be used at some point in the future to rename the file back to its original name, if/when/how that occurs is outside the scope of this document but recording the original filename in the event gives you the option.
 
-Whatever strategy and tools you choose please keep in mind that these are only guidelines and testing will be required across the entire life cycle of your digital assets and SIPs from accession/creation through ingestion to preservation and access/export to determine what works and what is problematic for you in practice. There are a lot of variables to consider and so testing is essential.
+One thing to be mindful of when not normalising is that in theory a filename change could occur during SIP transfer and your SIP may ingest fine, you might not even lose any SIP files or metadata. However under this scenario you may have silenty lost the original filename characters, essentially an unplanned and unrecorded filename change event has occurred. Only rigorous testing of your own workflows and systems can detect something like this and determine what normalisation if any is mandated. Of course this could theoretically happen after normalisation, it is much less likely but even with normalistion rigorous testing of your own workflows and systems is essential.
+
+### Archive files and disk images
+
+Another method which can help with some of these issues is the use of archive files or disk images, there is nothing in this specification which prohibits this, but it is a complicated topic outside the scope of this document. 
+

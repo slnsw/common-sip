@@ -4,9 +4,9 @@
 
 | Document Control       |            |
 |------------------------|------------|
-| Specification Version: | 0.6        |
-| Date:                  | 2024-10-01 |
-| Status:                | Final      |
+| Specification Version: | 0.7        |
+| Date:                  | 2025-10-21 |
+| Status:                | Draft      |
 
 ## About this specification
 
@@ -116,7 +116,6 @@ A single metadata spreadsheet directly in the data directory named using the sam
 - PREMIS_Files_significant_props
 - PREMIS_Files_creating_app
 - PREMIS_Files_inhibitors
-- PREMIS_Files_original_name
 - PREMIS_Files_rights
 - File_Sequence
 
@@ -518,18 +517,6 @@ A sheet to record the inhibitors for specific files with the following columns:
     -   **Do not use an actual key or password!** Instead provide a description of where the key or password can be found by an authorised user.
     -   This value only makes sense if inhibitor_type is provided
 
-#### PREMIS_Files_original_name
-
-A sheet to record the original names for specific files with the following columns:
-
--   file_path **\[m\]**
-    -   relative path to file on disk from data directory
--   original_name **\[m\]**
-    -   Semantic unit 1.6 originalName
-    -   original filename if different to that on disk. This can be a path or a filename. If a path it must be the full path relative from the data directory which means it starts with **\<representation_name\>/**. This should be stored in PREMIS originalName for provenance and may also be useful in the future for reproducing the original directory and filenames.
-    -   Cannot include parent directory symbol \'../\'
-    -   Using UTF-8 encoding in the XLSX file is very important here as the characters in UTF-8 encoding are what you are indicating you want preserved. This should be interpreted as UTF-8 so if you use a different encoding the characters may differ!
-
 #### PREMIS_Files_rights
 
 A sheet to record the rights as they apply to specific files with the following columns:
@@ -563,21 +550,7 @@ The data/**\<representation_name\>/** directories contains the files for preserv
 
 How this directory name will be used depends on the specific digital preservation system, it may just be a directory name to group the files together or it may be stored in metadata. PREMIS itself does not provide any field for the representation name/type. It is recommended to be consistent with your naming of these representation directories and where possible reuse a common set of directory names to facilitate in reporting and preservation planning. Of course, there will be edge cases where individual IEs have unique representation names not shared with other IEs and this is fine.
 
-In cases where the original directory structure and or filenames are important for preservation, provenance and/or rendering you have three options with this SIP specification:
-
-**Option one**
-
-Change nothing, store and name the files within the **\<representation_name\>/** directory as you want them preserved.
-
-**Option two**
-
-Standardise file/directory names and/or flatten directory hierarchy on disk and provide original_name metadata in the metadata spreadsheet under PREMIS_Files_original_name to include the original directory structure and/or filename. It is also best to record the renaming in the SIP as a PREMIS event. This original_name metadata may be used at some point in the future to rename the file back to its original name, if/when/how that occurs is outside the scope of this document but recording the original name here gives you the option.
-
-This specification doesn't impose any restrictions on directory and file naming within the representation directories so option one is always allowed even with non-standard characters. Option two may be considered when you have directories or files with problematic characters to ensure they are maintained as SIPs are processed and moved between file systems. If considering option two see *File and directory naming* in the [supplementary document](supplement.md) for more details and some suggestions. In general, it is not advisable to rename files or directories unless necessary.
-
-**Option three**
-
-Use an archive file or disk image, there is nothing in this specification which prohibits this, but it is a complicated topic with pros and cons and is outside the scope of this document.
+See *File and directory naming* in the [supplementary document](supplement.md) for information about recording original filenames.
 
 *\*The representation_information directory name is reserved.*
 
@@ -587,7 +560,7 @@ The data/**\<representation_name\>**/representation_information/ directory is a 
 
 Environment objects and representation information networks are not supported by this specification. Further analysis and manual preparation will need to be conducted for these more complex examples of representation information.
 
-It is recommended that filenames within this directory be restricted to standard characters as defined in *File and directory naming* in the [supplementary document](supplement.md) unless maintaining these filenames is important for preservation or provenance. Note that there is no support in this specification for recording the original names of files within representation_information.
+It is recommended that filenames within this directory be restricted to standard characters as defined in *File and directory naming* in the [supplementary document](supplement.md) unless maintaining these filenames is important for preservation or provenance.
 
 ## References
 Anderson, R. (2013). The Moab Design for Digital Object Versioning. The Code4Lib Journal, 21. https://journal.code4lib.org/articles/8482
