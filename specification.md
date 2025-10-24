@@ -14,7 +14,9 @@ This specification was developed as part of the Cluster DRF project, funded by t
 
 The purpose of this is to provide a system agnostic Digital Preservation Submission Information Package(SIP) specification which meets the requirements of all four Cultural Institutions (CIs) in the DRF project. This specification has been made public as of version 0.5 under the [MIT license](LICENSE).
 
-A [supplementary document](supplement.md) is also provided which includes some background information and rationale behind decisions made in the specification. This is necessary to keep the main specification document succinct.
+We reserve the right to make breaking changes until version 1.0 is reached.
+
+A [supplementary document](supplement.md) is also provided which includes some background information, usage recommendations and rationale behind decisions made in the specification. This is necessary to keep the main specification document succinct.
 
 
 ## Specification
@@ -35,7 +37,7 @@ Everything else is optional. In spreadsheets with optional columns, if some of t
 
 Sheets and columns are generally not repeatable. For repeatability of metadata provided in rows refer to the standard if one exists, otherwise they are generally repeatable.
 
-Refer to standards (Dublin Core, PREMIS, etc) for allowed values and formats. In some cases when using fields from a standard we try and provide guidance by linking to controlled vocabularies but in general refer to the standard for supported values. For fields not part of an existing standard or where this specification further resticts, allowed values or a regular expression may be specified surrounded by single quotes **' '**. PCRE is used for regular expressions. 
+Refer to standards (Dublin Core, PREMIS, etc) for allowed values and formats. In some cases when using fields from a standard we try and provide guidance by linking to controlled vocabularies but in general refer to the standard for supported values. For fields not part of an existing standard or where this specification further restricts, allowed values or a regular expression may be specified surrounded by single quotes **' '**. PCRE is used for regular expressions. 
 Placeholders are surrounded by chevrons **<>**, literal values around placeholders are written without any special formatting.
 
 Always use UTF-8 for character encoding in the tag files and with any data in the xlsx files. This encoding restriction does not apply to text files in representation directories being preserved which can be in any encoding.
@@ -312,9 +314,11 @@ A sheet to record PREMIS provenance and pre-ingest preservation events related t
     -   Taken from controlled vocabulary [**https://id.loc.gov/vocabulary/preservation/eventType.html**](https://id.loc.gov/vocabulary/preservation/eventType.html)
 -   event_date_time **\[m\]**
     -   Semantic unit 2.3 eventDateTime
--   event_detail
+-   event_detail_1
     -   Semantic unit 2.4.1 eventDetailInformation=\>eventDetail
     -   Additional information about the event
+-   event_detail_2*
+-   event_detail_3*
 -   event_outcome
     -   Semantic unit 2.5.1 eventOutcomeInformation=\>eventOutcome
     -   A categorization of the overall result of the Event in terms of success, partial success, or failure.
@@ -326,6 +330,8 @@ A sheet to record PREMIS provenance and pre-ingest preservation events related t
     -   The role of the Agent in relation to this event
     -   This value makes no sense without the linking_agent_identifier_value above
     -   Value from controlled vocabulary [**https://id.loc.gov/vocabulary/preservation/eventRelatedAgentRole.html**](https://id.loc.gov/vocabulary/preservation/eventRelatedAgentRole.html)
+
+*\*Event detail is repeated here although it is NR in PREMIS 3.0 but it is expected that a digital preservation system will wrap this in the repeatable wrapper eventDetailInformation.*
 
 #### PREMIS_IE_significant_props
 
@@ -549,8 +555,6 @@ These are useful in cases where a more complicated arrangement or grouping of fi
 The data/**\<representation_name\>/** directories contains the files for preservation. In the above diagram, the files are in a flat directory structure however this specification does allow nested directories\*.
 
 How this directory name will be used depends on the specific digital preservation system, it may just be a directory name to group the files together or it may be stored in metadata. PREMIS itself does not provide any field for the representation name/type. It is recommended to be consistent with your naming of these representation directories and where possible reuse a common set of directory names to facilitate in reporting and preservation planning. Of course, there will be edge cases where individual IEs have unique representation names not shared with other IEs and this is fine.
-
-See *File and directory naming* in the [supplementary document](supplement.md) for information about recording original filenames.
 
 *\*The representation_information directory name is reserved.*
 

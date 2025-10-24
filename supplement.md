@@ -4,13 +4,13 @@
 
 | Document Control       |            |
 |------------------------|------------|
-| Specification Version: | 0.6        |
-| Date:                  | 2024-10-01 |
-| Status:                | Final      |
+| Specification Version: | 0.7        |
+| Date:                  | 2025-10-21 |
+| Status:                | Draft      |
 
 ## Overview
 
-Supplementary information for the DRF common SIP specification including rationale behind decisions. This is necessary to keep the main specification document succinct. Please see the [main specification document](specification.md).
+Supplementary information for the DRF common SIP specification including recommended usage and rationale behind decisions. This is necessary to keep the main specification document succinct. Please see the [main specification document](specification.md).
   
 
 ## Approach
@@ -120,17 +120,17 @@ These are the key principles we were working under:
 
 ### File and directory naming
 
-BagIt is file system neutral so files can be stored on any filesystem. This presents challenges for as different filesystems have different constraints and structures. For example, Apple DOS 3.3 has a maximum filename length of 30 chars/bytes whereas with FAT32 in DOS the maximum is 11 chars/bytes. Other aspects with differences between filesystems include character set/encoding, case preservation/sensitivity and reserved characters.
+BagIt is file system neutral so files can be stored on any file system. This presents challenges for as different file systems have different constraints and structures. For example, Apple DOS 3.3 has a maximum filename length of 30 chars/bytes whereas with FAT32 in DOS the maximum is 11 chars/bytes. Other aspects with differences between file systems include character set/encoding, case preservation/sensitivity and reserved characters.
 
-Due to these differences copying files between filesystems (such as when transferring and processes SIPs) can lead to unpredictable and undesirable results. Some file copying applications can help if they support the conversion of encodings but in general this requires knowing the encodings of the source and destination filesystems.
+Due to these differences copying files between file systems (such as when transferring and processes SIPs) can lead to unpredictable and undesirable results. Some file copying applications can help if they support the conversion of encodings but in general this requires knowing the encodings of the source and destination files systems.
 
 It is also worth considering that this conversion could change the underlying bytes of the filenames but in general we are more interested in the filename characters than the bytes themselves (note this is different when preserving contents of files, where the bytes need to be maintained!).
 
-SIP processing might break if filenames and/or paths change. If the digital preservation system cannot find the file referenced in the SIP, SIP processing will either fail or you could even potentially lose the metadata depending on how the digital preservation system handles this error.
+SIP processing might break if filenames and/or file paths change. If the digital preservation system cannot find the file referenced in the SIP, SIP processing will either fail or you could even potentially lose the metadata depending on how the digital preservation system handles this error.
 
 You may be able to maintain the correct filename characters if you carefully convert encodings intelligently during transfers but this will not avoid all issues such as different filename length restrictions.
 
-One method to try and avoid some of these issues is to standardise the filenames in representation directories into a format which is widely supported across most filesystems. This approach requires renaming any files which do not conform to the standard. Here is an example of a convention you might use:
+One method you might use to try and avoid some of these issues is to standardise the filenames and directories in representation directories into a format which is widely supported across most filesystems. This approach requires renaming any files and directories which do not conform to the standard. Here is an example of a convention you might try:
 
 -   Contain lower-case letters, numbers, fullstops, underscores, or dashes.
 -   MUST NOT begin with a dash. (-)
@@ -141,11 +141,19 @@ One method to try and avoid some of these issues is to standardise the filenames
 
 In any case it is up to you to do rigorous testing of your workflows and systems to ensure all files and metadata in your SIPs are safely stored in your digital preservation system.
 
-If you do decide to normalise, you should consider that the original directory structure and filenames can be important for preservation and rendering. Therefore you should record a PREMIS filename change event for provenance. This event should include the original filename recorded in a separate metadata element by repeating event_detail. This original filename metadata may be used at some point in the future to rename the file back to its original name, if/when/how that occurs is outside the scope of this document but recording the original filename in the event gives you the option.
+If you do decide to standardise, you should consider that the original directory structure and filenames can be important for preservation and rendering. Therefore you should record a PREMIS filename change event for provenance. This event should include the original filename recorded in a separate metadata element. One way to do this in the common SIP specification is by using the repeating event_detail columns in the PREMIS_Files_events sheet as follows: 
 
-One thing to be mindful of when not normalising is that in theory a filename change could occur during SIP transfer and your SIP may ingest fine, you might not even lose any SIP files or metadata. However under this scenario you may have silenty lost the original filename characters, essentially an unplanned and unrecorded filename change event has occurred. Only rigorous testing of your own workflows and systems can detect something like this and determine what normalisation if any is mandated. Of course this could theoretically happen after normalisation, it is much less likely but even with normalistion rigorous testing of your own workflows and systems is essential.
+| event_detail_1 | event_detail_2                              | event_detail_3                                 |
+|----------------|---------------------------------------------|------------------------------------------------|
+|pre-ingest event| unsupported character removed from filename | originalFilename: ©Peter Brotherton - 2025.tif |
 
-### Archive files and disk images
+If this is a directory name change we suggest using originalFilepath label instead, for example:
 
-Another method which can help with some of these issues is the use of archive files or disk images, there is nothing in this specification which prohibits this, but it is a complicated topic outside the scope of this document. 
+| event_detail_1 | event_detail_2                               | event_detail_3                                |
+|----------------|----------------------------------------------|-----------------------------------------------|
+|pre-ingest event| unsupported character removed from directory | originalFilepath: weird©directory/my_file.tif |
+
+This original filename metadata may be useful at some point in the future to rename the file back to its original name, if/when/how that occurs is outside the scope of this document but recording the original filename in the event gives you the option.
+
+One thing to be mindful of when not standardising is that in theory a filename change could occur during SIP transfer and your SIP may ingest fine, you might not even lose any SIP files or metadata. However under this scenario you may have silenty lost the original filename characters, essentially an unplanned and unrecorded filename change event has occurred. Only rigorous testing of your own workflows and systems can detect something like this and determine what standardising if any is mandated. Of course this could theoretically happen after standardising, it is much less likely but even so rigorous testing of your own ingestion workflows and systems is essential.
 

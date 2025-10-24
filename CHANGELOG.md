@@ -9,9 +9,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
+- PREMIS_IE_events - event_detail_2 and event_detail_3
+
 ### Changed
 
-- Rewrote large parts of the file renaming recommendations and moved them out of the specification and into the supplement.
+- PREMIS_IE_events - event_detail renamed to event_detail_1
+- Rewrote file standardisation information and moved it into the supplement.
 
 ### Removed
 
