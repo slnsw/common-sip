@@ -5,7 +5,7 @@
 | Document Control       |            |
 |------------------------|------------|
 | Specification Version: | 0.7        |
-| Date:                  | 2025-10-21 |
+| Date:                  | 2025-10-25 |
 | Status:                | Draft      |
 
 ## About this specification

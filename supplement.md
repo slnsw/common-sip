@@ -5,7 +5,7 @@
 | Document Control       |            |
 |------------------------|------------|
 | Specification Version: | 0.7        |
-| Date:                  | 2025-10-21 |
+| Date:                  | 2025-10-25 |
 | Status:                | Draft      |
 
 ## Overview
@@ -44,18 +44,18 @@ These are the key principles we were working under:
 -   All recommended controlled vocabularies in PREMIS 3.0 are followed where relevant.
 -   If a specific digital preservation system does not fully support PREMIS 3.0 in SIPs, some or all the PREMIS metadata will likely need to be placed in an XML sidecar file, but these decisions are outside the scope of this specification.
 -   PREMIS 3.0 technically allows duplicate Agent IDs across different Agent Identifier Type domains. The common SIP specification does not, each Agent ID must uniquely identify an agent across all Identifier Type domains. This is to make linking to Agents within the common SIP specification easier.
--   PREMIS 3.0 Environment objects are not supported. If a CI requires environment objects, it is best to consider the specific digital preservation system when preparing these objects. This complex modelling is handled very differently (if at all) in each system and is too difficult to generalise into a common SIP specification.
--   PREMIS allows non digital representations, this is not supported in the common SIP specification.
+-   PREMIS 3.0 Environment objects are not currently supported in the latest version of the common SIP specification.
+-   PREMIS allows non digital representations, this is not supported in the atest version of the common SIP specification.
 -   PREMIS allows IEs to be defined at any level of aggregation. The common SIP specification does not make any assumptions about the level but keep in mind the other constraints outlined in this document which may impact which levels of aggregation to model with common SIPs. The descriptive metadata field dcterms:type could be used to indicate the level of aggregation.
 
 ### PREMIS Relationships
 
--   Where available and it makes sense, this specification allows the modelling of relationships as defined in PREMIS. However, PREMIS primary identifiers for Objects, Rights Statements and Events are not supported and will generally be generated internally by the preservation system to ensure uniqueness. This makes modelling certain relationships explicitly (such as an IEs relationship to its Representations) or at all in the SIP difficult. This specification aims to provide the ability to explicitly model the most important relationships which can be realistically provided in a SIP.
+-   Where available and it makes sense, this specification allows the modelling of relationships as defined in PREMIS. However, PREMIS primary identifiers are not always used. This makes modelling certain relationships explicitly (such as an IEs relationship to its Representations) or at all in the SIP difficult. This specification aims to provide the ability to explicitly model the most important relationships which can be realistically provided in a SIP.
 -   In some cases, the common SIP specification uses file paths instead of object identifiers to model PREMIS relationships in the SIP. How these are converted to PREMIS object identifiers depends on the specific digital preservation system.
 -   For those relationships which cannot be modelled explicitly but are modelled implicitly, the implied relationship (such as the Representations belonging to the IE) should be converted into PREMIS relationships by the specific preservation system.
 -   PREMIS allows relationships between entities to be defined on either side or both sides, how this is modelled will be determined by the preservation system.
 -   This specification does not support relationships between Agents and Rights entities.
--   PREMIS allows relationships between IEs and supports IEs without direct representations or files. These could for example be used to model a hierarchy of IEs. These types of IEs and relationships are not supported in the common SIP specification. You can specify a collection in the administrative metadata spreadsheet to indicate the IE belongs to that collection.
+-   PREMIS allows relationships between IEs and supports IEs without direct representations or files. These could for example be used to model a hierarchy of IEs. These types of IEs and relationships are not supported in the common SIP specification. You can specify a collection in the administrative metadata spreadsheet to indicate the IE belongs to a collection.
 -   PREMIS allows the direct relation of files to IEs without representations. This is not supported in the common SIP specification where each file must belong to a representation.
 -   PREMIS supports the concept of external only IEs where representations or files are related to the external IE by way of URL (Uniform Resource Locator) and the IE is not represented in PREMIS. This is not supported in the common SIP specification where IE objects must be defined but the required metadata for the PREMIS IE in the common SIP specification is very minimal.
 -   You can still link to the external IE with PREMIS using an IE objectIdentifier and in the common SIP spec this is supported with the IE\_external\_identifiers sheet. These secondary identifiers will not be used for PREMIS relationships within the DP system. The idea with these external IDs is that the full IE metadata is described externally with a minimal description in the DP system for the purposes of aggregating the representations and/or files. If a CI is lacking an external system for describing intellectual entities, they can document the IE within the SIP using descriptive metadata more fully using Dublin core terms or an alternative supported descriptive metadata schema.
@@ -100,7 +100,7 @@ These are the key principles we were working under:
 -   Representation information networks (chaining multiple instances of representation information) are not supported by this specification.
 -   If a CI requires representation information networks, it is best to consider the specific digital preservation system when preparing these objects. This complex modelling is handled very differently (if at all) in each system and is too difficult to generalise into a common SIP specification.
 -   The DP system should attempt to link/associate any files provided in the representation\_information directory directly to the objects being preserved. In practice how this is achieved will be DP system dependent. As this information is critical for the rendering or understanding of the content being preserved the DP system should treat this as material to preserve. If the target system has no concept of OAIS representation information, this data should be added as an additional PREMIS representation within the IE as a last resort.
--   Keep in mind that digital preservation systems typically have built in features such as file format and software registries that will also provide a certain level of representation information and structural maps can also be considered a kind of representation information. The representation\_information directory is included in the specification for additional representation information. You might not have any additional representation information for most or even all your IEs and that is fine. It is much better to get them into the preservation system with missing representation information than not at all.
+-   Keep in mind that digital preservation systems typically have built in features such as file format and software registries that will also provide a certain level of representation information and structural maps can also be considered a kind of representation information. The representation\_information directory is included in the specification for additional representation information. You might not have any additional representation information for most or even all your IEs and that is fine. 
 -   There is no directory for Preservation Description Information (PDI). PDI is distributed through the spreadsheets and BagIt tag files.
 
 ### Structural metadata assumptions and decisions
@@ -120,17 +120,13 @@ These are the key principles we were working under:
 
 ### File and directory naming
 
-BagIt is file system neutral so files can be stored on any file system. This presents challenges for as different file systems have different constraints and structures. For example, Apple DOS 3.3 has a maximum filename length of 30 chars/bytes whereas with FAT32 in DOS the maximum is 11 chars/bytes. Other aspects with differences between file systems include character set/encoding, case preservation/sensitivity and reserved characters.
+BagIt is file system neutral so files can be stored on any file system. This presents challenges as different file systems have different constraints and structures. For example, Apple DOS 3.3 has a maximum filename length of 30 chars/bytes whereas with FAT32 in DOS the maximum is 11 chars/bytes. Other property differences between file systems include character set/encoding, case preservation/sensitivity and reserved characters.
 
-Due to these differences copying files between file systems (such as when transferring and processes SIPs) can lead to unpredictable and undesirable results. Some file copying applications can help if they support the conversion of encodings but in general this requires knowing the encodings of the source and destination files systems.
+Due to these differences copying files between file systems (such as when transferring and processes SIPs) can lead to unpredictable and undesirable results. Some file copying applications can help if they support the conversion of encodings but in general this requires knowing the encodings of the source and destination files systems. It is also worth considering that encoding conversion could change the underlying bytes of the filenames. 
 
-It is also worth considering that this conversion could change the underlying bytes of the filenames but in general we are more interested in the filename characters than the bytes themselves (note this is different when preserving contents of files, where the bytes need to be maintained!).
+SIP processing might break if filenames and/or file paths change. If the digital preservation system cannot find the file referenced in the SIP, SIP processing will either fail or you could even potentially lose the metadata depending on how the digital preservation system handles this error. At the very least you have lost some of the original filename characters themselves. One way to minimise these kinds of risks is by ensuring the digital preservation system validates the bag before ingestion.
 
-SIP processing might break if filenames and/or file paths change. If the digital preservation system cannot find the file referenced in the SIP, SIP processing will either fail or you could even potentially lose the metadata depending on how the digital preservation system handles this error.
-
-You may be able to maintain the correct filename characters if you carefully convert encodings intelligently during transfers but this will not avoid all issues such as different filename length restrictions.
-
-One method you might use to try and avoid some of these issues is to standardise the filenames and directories in representation directories into a format which is widely supported across most filesystems. This approach requires renaming any files and directories which do not conform to the standard. Here is an example of a convention you might try:
+One method you might use to try and avoid some of these issues is to standardise the filenames and directories into a format which includes only characters that are widely supported across most file systems. This approach requires renaming any files and directories which do not conform to the standard. Here is an example of a convention you might try:
 
 -   Contain lower-case letters, numbers, fullstops, underscores, or dashes.
 -   MUST NOT begin with a dash. (-)
@@ -138,8 +134,6 @@ One method you might use to try and avoid some of these issues is to standardise
 -   MUST be at least 1 character in length.
 -   Filename MUST BE restricted to 255 bytes
 -   Entire path MUST BE restricted to 1024 bytes in length including any file extension
-
-In any case it is up to you to do rigorous testing of your workflows and systems to ensure all files and metadata in your SIPs are safely stored in your digital preservation system.
 
 If you do decide to standardise, you should consider that the original directory structure and filenames can be important for preservation and rendering. Therefore you should record a PREMIS filename change event for provenance. This event should include the original filename recorded in a separate metadata element. One way to do this in the common SIP specification is by using the repeating event_detail columns in the PREMIS_Files_events sheet as follows: 
 
@@ -155,5 +149,4 @@ If this is a directory name change we suggest using originalFilepath label inste
 
 This original filename metadata may be useful at some point in the future to rename the file back to its original name, if/when/how that occurs is outside the scope of this document but recording the original filename in the event gives you the option.
 
-One thing to be mindful of when not standardising is that in theory a filename change could occur during SIP transfer and your SIP may ingest fine, you might not even lose any SIP files or metadata. However under this scenario you may have silenty lost the original filename characters, essentially an unplanned and unrecorded filename change event has occurred. Only rigorous testing of your own workflows and systems can detect something like this and determine what standardising if any is mandated. Of course this could theoretically happen after standardising, it is much less likely but even so rigorous testing of your own ingestion workflows and systems is essential. One way to minimise these kinds of risks is by ensuring the digital preservation system validates the bag before ingestion.
-
+This is a complicated topic with many variables and potential pitfalls. Rigorous testing of your workflows and systems to ensure all files and metadata in your SIPs are safely stored in your digital preservation system is highly recommended.
