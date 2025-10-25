@@ -314,7 +314,7 @@ A sheet to record PREMIS provenance and pre-ingest preservation events related t
     -   Taken from controlled vocabulary [**https://id.loc.gov/vocabulary/preservation/eventType.html**](https://id.loc.gov/vocabulary/preservation/eventType.html)
 -   event_date_time **\[m\]**
     -   Semantic unit 2.3 eventDateTime
--   event_detail_1
+-   event_detail
     -   Semantic unit 2.4.1 eventDetailInformation=\>eventDetail
     -   Additional information about the event
 -   event_detail_2*

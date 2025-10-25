@@ -13,15 +13,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 
-- PREMIS_IE_events - event_detail renamed to event_detail_1
 - Rewrote file standardisation information and moved it into the supplement.
 
 ### Removed
 
 - PREMIS_Files_original_name - reserved by DP systems
-
-### Fixed
-
 
 ## [0.6.0] - 2024-10-01
 

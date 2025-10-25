@@ -143,14 +143,14 @@ In any case it is up to you to do rigorous testing of your workflows and systems
 
 If you do decide to standardise, you should consider that the original directory structure and filenames can be important for preservation and rendering. Therefore you should record a PREMIS filename change event for provenance. This event should include the original filename recorded in a separate metadata element. One way to do this in the common SIP specification is by using the repeating event_detail columns in the PREMIS_Files_events sheet as follows: 
 
-| event_detail_1 | event_detail_2                              | event_detail_3                                 |
-|----------------|---------------------------------------------|------------------------------------------------|
+| event_detail | event_detail_2                              | event_detail_3                                 |
+|--------------|---------------------------------------------|------------------------------------------------|
 |pre-ingest event| unsupported character removed from filename | originalFilename: ©Peter Brotherton - 2025.tif |
 
 If this is a directory name change we suggest using originalFilepath label instead, for example:
 
-| event_detail_1 | event_detail_2                               | event_detail_3                                |
-|----------------|----------------------------------------------|-----------------------------------------------|
+| event_detail | event_detail_2                               | event_detail_3                                |
+|--------------|----------------------------------------------|-----------------------------------------------|
 |pre-ingest event| unsupported character removed from directory | originalFilepath: weird©directory/my_file.tif |
 
 This original filename metadata may be useful at some point in the future to rename the file back to its original name, if/when/how that occurs is outside the scope of this document but recording the original filename in the event gives you the option.
