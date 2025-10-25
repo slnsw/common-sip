@@ -314,11 +314,11 @@ A sheet to record PREMIS provenance and pre-ingest preservation events related t
     -   Taken from controlled vocabulary [**https://id.loc.gov/vocabulary/preservation/eventType.html**](https://id.loc.gov/vocabulary/preservation/eventType.html)
 -   event_date_time **\[m\]**
     -   Semantic unit 2.3 eventDateTime
--   event_detail
+-   event_detail1
     -   Semantic unit 2.4.1 eventDetailInformation=\>eventDetail
     -   Additional information about the event
--   event_detail_2*
--   event_detail_3*
+-   event_detail2*
+-   event_detail3*
 -   event_outcome
     -   Semantic unit 2.5.1 eventOutcomeInformation=\>eventOutcome
     -   A categorization of the overall result of the Event in terms of success, partial success, or failure.
