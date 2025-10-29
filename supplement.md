@@ -149,4 +149,6 @@ If this is a directory name change we suggest using originalFilepath label inste
 
 This original filename metadata may be useful at some point in the future to rename the file back to its original name, if/when/how that occurs is outside the scope of this document but recording the original filename in the event gives you the option.
 
+Using UTF-8 encoding in the XLSX file for the original filename is important here as the characters in UTF-8 encoding are what you are indicating you want recorded. This should be interpreted as UTF-8 by any implementing system.
+
 This is a complicated topic with many variables and potential pitfalls. Rigorous testing of your workflows and systems to ensure all files and metadata in your SIPs are safely stored in your digital preservation system is highly recommended.
