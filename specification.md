@@ -318,7 +318,7 @@ A sheet to record PREMIS provenance and pre-ingest preservation events related t
     -   Semantic unit 2.4.1 eventDetailInformation=\>eventDetail
     -   Additional information about the event
 -   event_detail2*
--   event_detail3*
+  - ...
 -   event_outcome
     -   Semantic unit 2.5.1 eventOutcomeInformation=\>eventOutcome
     -   A categorization of the overall result of the Event in terms of success, partial success, or failure.
@@ -331,7 +331,7 @@ A sheet to record PREMIS provenance and pre-ingest preservation events related t
     -   This value makes no sense without the linking_agent_identifier_value above
     -   Value from controlled vocabulary [**https://id.loc.gov/vocabulary/preservation/eventRelatedAgentRole.html**](https://id.loc.gov/vocabulary/preservation/eventRelatedAgentRole.html)
 
-*\*Event detail is repeated here although it is NR in PREMIS 3.0 but it is expected that a digital preservation system will wrap this in the repeatable wrapper eventDetailInformation.*
+*\*Event detail can repeated as many times as needed, starting with suffix 1 and incrementing the number each time. Although it is a non repeating semantic unit in PREMIS 3.0, it is expected that a digital preservation system will wrap this in the repeatable wrapper eventDetailInformation.*
 
 #### PREMIS_IE_significant_props
 

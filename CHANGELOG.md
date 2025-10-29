@@ -9,7 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Added
 
-- PREMIS_IE_events - event_detail2, event_detail3 (also applies to PREMIS_Rep_events and PREMIS_Files_events)
+- PREMIS_IE_events - repeating event_detail columns (also applies to PREMIS_Rep_events and PREMIS_Files_events)
 
 ### Changed
 
