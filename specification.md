@@ -318,7 +318,6 @@ A sheet to record PREMIS provenance and pre-ingest preservation events related t
     -   Semantic unit 2.4.1 eventDetailInformation=\>eventDetail
     -   Additional information about the event
 -   event_detail2*
-  - ...
 -   event_outcome
     -   Semantic unit 2.5.1 eventOutcomeInformation=\>eventOutcome
     -   A categorization of the overall result of the Event in terms of success, partial success, or failure.
@@ -570,37 +569,69 @@ It is recommended that filenames within this directory be restricted to standard
 The following were sources of information and inspiration:
 
 Anderson, R. (2013). The Moab Design for Digital Object Versioning. The Code4Lib Journal, 21. https://journal.code4lib.org/articles/8482
+
 BagIt Profiles Specification 1.4.0. (n.d.). Retrieved from https://bagit-profiles.github.io/bagit-profiles-specification/
+
 Common Specification for Information Packages. (n.d.). Retrieved from https://dilcis.eu/specifications/common-specification
+
 Congress, T. L. of. (n.d.). Preservation Schemes (all) - LC Linked Data Service: Authorities and Vocabularies | Library of Congress, from LC Linked Data Service: Authorities and Vocabularies (Library of Congress) [Webpage]. Retrieved from https://id.loc.gov/vocabulary/preservation.html
+
 Core terms defined by Darwin Core. (n.d.-a). Retrieved from http://rs.tdwg.org/dwc/terms.htm
+
 Core terms defined by Darwin Core. (n.d.-b). Retrieved from https://rs.tdwg.org/dwc/terms.htm
+
 Darwin Core. (n.d.). Retrieved from https://dwc.tdwg.org/
+
 DCMI Metadata Terms. (n.d.). DCMI. Retrieved from https://www.dublincore.org/specifications/dublin-core/dcmi-terms/
+
 Digital Content Transfer Tools—Digital Preservation (Library of Congress). (n.d.). Retrieved from https://www.digitalpreservation.gov/series/challenge/data-transfer-tools.html
+
 E-ARK SIP | Specification for Submission Information Packages. (n.d.). Retrieved from https://earksip.dilcis.eu/
+
 Filename. (2024). In Wikipedia. https://en.wikipedia.org/w/index.php?title=Filename&oldid=1241300520
+
 ISO 8601. (2024). In Wikipedia. https://en.wikipedia.org/w/index.php?title=ISO_8601&oldid=1243637756
+
 Kunze, J. A., Littman, J., Madden, L., Scancella, J., & Adams, C. (2018). The BagIt File Packaging Format (V1.0) (Request for Comments No. RFC 8493). Internet Engineering Task Force. https://doi.org/10.17487/RFC8493
+
 Langley, S. (2018). Digital Preservation Should Be More Holistic: A Digital Stewardship Approach. American Library Association. https://doi.org/10.17863/CAM.34317
+
 LibraryOfCongress/bagger: The Bagger application packages data files according to the BagIt specification. (n.d.). Retrieved from https://github.com/LibraryOfCongress/bagger
+
 LibraryOfCongress/bagit-python. (2025). [Python]. Library of Congress. https://github.com/LibraryOfCongress/bagit-python (Original work published 2013)
+
 Metadata Encoding and Transmission Standard (METS) Official Web Site | Library of Congress. (n.d.). Retrieved from https://www.loc.gov/standards/mets/
+
 OCFL Specifications. (n.d.). Oxford Common File Layout. Retrieved from https://ocfl.io/
+
 OCLC, & Lavoie, B. (2014). The Open Archival Information System (OAIS) Reference Model: Introductory Guide (2nd Edition) (Second). Digital Preservation Coalition. https://doi.org/10.7207/twr14-02
+
 Parchive. (2024). In Wikipedia. https://en.wikipedia.org/w/index.php?title=Parchive&oldid=1237832538
+
 PREMIS Data Dictionary for Preservation Metadata, Version 3.0. (n.d.). https://www.loc.gov/standards/premis/v3/premis-3-0-final.pdf
+
 PREMIS: Preservation Metadata Maintenance Activity (Library of Congress). (n.d.). Retrieved from https://www.loc.gov/standards/premis/
+
 Preserving the Scholarly and Cultural Record. (n.d.). APTrust. Retrieved from https://aptrust.org/
-Producer-Archive Interface Specification (PAIS)—A Tutorial. (2016).
+
+Producer-Archive Interface Specification (PAIS)—A Tutorial. (2016). https://ccsds.org/Pubs/651x2g1.pdf
+
 sdwheeler. (n.d.). New-Guid (Microsoft.PowerShell.Utility)—PowerShell. Retrieved from https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/new-guid?view=powershell-7.5
+
 Uniform Resource Name. (2024). In Wikipedia. https://en.wikipedia.org/w/index.php?title=Uniform_Resource_Name&oldid=1220954593
+
 Uniform Resource Names (URN) Namespaces. (n.d.). Retrieved from https://www.iana.org/assignments/urn-namespaces/urn-namespaces.xhtml
+
 Universally unique identifier. (2024). In Wikipedia. https://en.wikipedia.org/w/index.php?title=Universally_unique_identifier&oldid=1243853686
+
 UTF-8. (2024). In Wikipedia. https://en.wikipedia.org/w/index.php?title=UTF-8&oldid=1243882536
+
 uuidgen(1)—Linux manual page. (n.d.). Retrieved from https://man7.org/linux/man-pages/man1/uuidgen.1.html
+
 XLSX Transitional (Office Open XML), ISO 29500:2008-2016, ECMA-376, Editions 1-5. (2024, May 9). [Web page]. https://www.loc.gov/preservation/digital/formats/fdd/fdd000398.shtml
+
 XML Formatted Data Unit (XFDU) Structure and Construction Rules. (2008). https://ccsds.org/Pubs/661x0b1.pdf
+
 XML Schema (W3C). (2024). In Wikipedia. https://en.wikipedia.org/w/index.php?title=XML_Schema_(W3C)&oldid=1244107261
 
 ## Glossary
