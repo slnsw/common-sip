@@ -6,7 +6,7 @@
 |------------------------|------------|
 | Specification Version: | 0.7        |
 | Date:                  | 2025-10-30 |
-| Status:                | Final      |
+| Version Status:        | Final      |
 
 ## Overview
 

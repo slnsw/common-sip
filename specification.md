@@ -6,7 +6,7 @@
 |------------------------|------------|
 | Specification Version: | 0.7        |
 | Date:                  | 2025-10-30 |
-| Status:                | Final      |
+| Version Status:        | Final      |
 
 ## About this specification
 
@@ -27,15 +27,13 @@ A [supplementary document](supplement.md) is also provided which includes some b
 
 Common SIPs are packaged as BagIt version 0.97 <https://datatracker.ietf.org/doc/html/draft-kunze-bagit-07> with the payload divided into metadata files and representation directories. Each representation directory itself includes the files and directories being preserved and an optional representation_information directory containing representation information. The directory name representation_information is reserved for OAIS representation information.
 
-This specification uses BagIt version 0.97.
-
 ### Validation, allowed values and recommended formats
 
 Anything marked with a uppercase **(M)** in parentheses is mandatory. Anything marked with a lowercase **[m]** in square brackets is only mandatory under certain circumstances, typically when other metadata is provided.
 
 Everything else is optional. In spreadsheets with optional columns, if some of the rows have data in that column and others don't you can just leave the cells without data empty. If none of the rows have data for the optional column you can omit that column entirely.
 
-Sheets and columns are generally not repeatable. For repeatability of metadata provided in rows refer to the standard if one exists, otherwise they are generally repeatable.
+Sheets and columns are not repeatable unless stated. For repeatability of metadata provided in rows refer to the standard if one exists, otherwise they are generally repeatable.
 
 Refer to standards (Dublin Core, PREMIS, etc) for allowed values and formats. In some cases when using fields from a standard we try and provide guidance by linking to controlled vocabularies but in general refer to the standard for supported values. For fields not part of an existing standard or where this specification further restricts, allowed values or a regular expression may be specified surrounded by single quotes **' '**. PCRE is used for regular expressions. 
 Placeholders are surrounded by chevrons **<>**, literal values around placeholders are written without any special formatting.
