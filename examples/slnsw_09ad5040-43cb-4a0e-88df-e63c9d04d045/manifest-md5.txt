@@ -1,5 +1,5 @@
 9bef609ed01b241a6a515b5b85ac13f7  data/screen_structmaps.xml
-0ee7274d35f710592cf3150d99ba93bf  data/slnsw_09ad5040-43cb-4a0e-88df-e63c9d04d045.xlsx
+fa9871c2ecc78b5da673192a6e5c85c9  data/slnsw_09ad5040-43cb-4a0e-88df-e63c9d04d045.xlsx
 0e38bbdd8b4cffab3c5c2b202303c218  data/comaster/e64961_0001_c.tif
 2deec2a2e1c08a48977ad8050854fdec  data/comaster/e64961_0002_c.tif
 2b15dc7a8acb603382288293423d3739  data/comaster/e64961_0003_c.tif

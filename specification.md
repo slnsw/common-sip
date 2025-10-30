@@ -4,9 +4,9 @@
 
 | Document Control       |            |
 |------------------------|------------|
-| Specification Version: | 0.6        |
-| Date:                  | 2024-10-01 |
-| Status:                | Final      |
+| Specification Version: | 0.7        |
+| Date:                  | 2025-10-30 |
+| Version Status:        | Final      |
 
 ## About this specification
 
@@ -14,7 +14,9 @@ This specification was developed as part of the Cluster DRF project, funded by t
 
 The purpose of this is to provide a system agnostic Digital Preservation Submission Information Package(SIP) specification which meets the requirements of all four Cultural Institutions (CIs) in the DRF project. This specification has been made public as of version 0.5 under the [MIT license](LICENSE).
 
-A [supplementary document](supplement.md) is also provided which includes some background information and rationale behind decisions made in the specification. This is necessary to keep the main specification document succinct.
+We reserve the right to make breaking changes until version 1.0 is reached.
+
+A [supplementary document](supplement.md) is also provided which includes some background information, usage recommendations and rationale behind decisions made in the specification. This is necessary to keep the main specification document succinct.
 
 
 ## Specification
@@ -25,17 +27,15 @@ A [supplementary document](supplement.md) is also provided which includes some b
 
 Common SIPs are packaged as BagIt version 0.97 <https://datatracker.ietf.org/doc/html/draft-kunze-bagit-07> with the payload divided into metadata files and representation directories. Each representation directory itself includes the files and directories being preserved and an optional representation_information directory containing representation information. The directory name representation_information is reserved for OAIS representation information.
 
-This specification uses BagIt version 0.97.
-
 ### Validation, allowed values and recommended formats
 
 Anything marked with a uppercase **(M)** in parentheses is mandatory. Anything marked with a lowercase **[m]** in square brackets is only mandatory under certain circumstances, typically when other metadata is provided.
 
 Everything else is optional. In spreadsheets with optional columns, if some of the rows have data in that column and others don't you can just leave the cells without data empty. If none of the rows have data for the optional column you can omit that column entirely.
 
-Sheets and columns are generally not repeatable. For repeatability of metadata provided in rows refer to the standard if one exists, otherwise they are generally repeatable.
+Sheets and columns are not repeatable unless stated. For repeatability of metadata provided in rows refer to the standard if one exists, otherwise they are generally repeatable.
 
-Refer to standards (Dublin Core, PREMIS, etc) for allowed values and formats. In some cases when using fields from a standard we try and provide guidance by linking to controlled vocabularies but in general refer to the standard for supported values. For fields not part of an existing standard or where this specification further resticts, allowed values or a regular expression may be specified surrounded by single quotes **' '**. PCRE is used for regular expressions. 
+Refer to standards (Dublin Core, PREMIS, etc) for allowed values and formats. In some cases when using fields from a standard we try and provide guidance by linking to controlled vocabularies but in general refer to the standard for supported values. For fields not part of an existing standard or where this specification further restricts, allowed values or a regular expression may be specified surrounded by single quotes **' '**. PCRE is used for regular expressions. 
 Placeholders are surrounded by chevrons **<>**, literal values around placeholders are written without any special formatting.
 
 Always use UTF-8 for character encoding in the tag files and with any data in the xlsx files. This encoding restriction does not apply to text files in representation directories being preserved which can be in any encoding.
@@ -116,7 +116,6 @@ A single metadata spreadsheet directly in the data directory named using the sam
 - PREMIS_Files_significant_props
 - PREMIS_Files_creating_app
 - PREMIS_Files_inhibitors
-- PREMIS_Files_original_name
 - PREMIS_Files_rights
 - File_Sequence
 
@@ -313,9 +312,10 @@ A sheet to record PREMIS provenance and pre-ingest preservation events related t
     -   Taken from controlled vocabulary [**https://id.loc.gov/vocabulary/preservation/eventType.html**](https://id.loc.gov/vocabulary/preservation/eventType.html)
 -   event_date_time **\[m\]**
     -   Semantic unit 2.3 eventDateTime
--   event_detail
+-   event_detail1
     -   Semantic unit 2.4.1 eventDetailInformation=\>eventDetail
     -   Additional information about the event
+-   event_detail2*
 -   event_outcome
     -   Semantic unit 2.5.1 eventOutcomeInformation=\>eventOutcome
     -   A categorization of the overall result of the Event in terms of success, partial success, or failure.
@@ -327,6 +327,8 @@ A sheet to record PREMIS provenance and pre-ingest preservation events related t
     -   The role of the Agent in relation to this event
     -   This value makes no sense without the linking_agent_identifier_value above
     -   Value from controlled vocabulary [**https://id.loc.gov/vocabulary/preservation/eventRelatedAgentRole.html**](https://id.loc.gov/vocabulary/preservation/eventRelatedAgentRole.html)
+
+*\*Event detail can repeated as many times as needed, starting with suffix 1 and incrementing the number each time. Although it is a non repeating semantic unit in PREMIS 3.0, it is expected that a digital preservation system will wrap this in the repeatable wrapper eventDetailInformation.*
 
 #### PREMIS_IE_significant_props
 
@@ -518,18 +520,6 @@ A sheet to record the inhibitors for specific files with the following columns:
     -   **Do not use an actual key or password!** Instead provide a description of where the key or password can be found by an authorised user.
     -   This value only makes sense if inhibitor_type is provided
 
-#### PREMIS_Files_original_name
-
-A sheet to record the original names for specific files with the following columns:
-
--   file_path **\[m\]**
-    -   relative path to file on disk from data directory
--   original_name **\[m\]**
-    -   Semantic unit 1.6 originalName
-    -   original filename if different to that on disk. This can be a path or a filename. If a path it must be the full path relative from the data directory which means it starts with **\<representation_name\>/**. This should be stored in PREMIS originalName for provenance and may also be useful in the future for reproducing the original directory and filenames.
-    -   Cannot include parent directory symbol \'../\'
-    -   Using UTF-8 encoding in the XLSX file is very important here as the characters in UTF-8 encoding are what you are indicating you want preserved. This should be interpreted as UTF-8 so if you use a different encoding the characters may differ!
-
 #### PREMIS_Files_rights
 
 A sheet to record the rights as they apply to specific files with the following columns:
@@ -563,22 +553,6 @@ The data/**\<representation_name\>/** directories contains the files for preserv
 
 How this directory name will be used depends on the specific digital preservation system, it may just be a directory name to group the files together or it may be stored in metadata. PREMIS itself does not provide any field for the representation name/type. It is recommended to be consistent with your naming of these representation directories and where possible reuse a common set of directory names to facilitate in reporting and preservation planning. Of course, there will be edge cases where individual IEs have unique representation names not shared with other IEs and this is fine.
 
-In cases where the original directory structure and or filenames are important for preservation, provenance and/or rendering you have three options with this SIP specification:
-
-**Option one**
-
-Change nothing, store and name the files within the **\<representation_name\>/** directory as you want them preserved.
-
-**Option two**
-
-Standardise file/directory names and/or flatten directory hierarchy on disk and provide original_name metadata in the metadata spreadsheet under PREMIS_Files_original_name to include the original directory structure and/or filename. It is also best to record the renaming in the SIP as a PREMIS event. This original_name metadata may be used at some point in the future to rename the file back to its original name, if/when/how that occurs is outside the scope of this document but recording the original name here gives you the option.
-
-This specification doesn't impose any restrictions on directory and file naming within the representation directories so option one is always allowed even with non-standard characters. Option two may be considered when you have directories or files with problematic characters to ensure they are maintained as SIPs are processed and moved between file systems. If considering option two see *File and directory naming* in the [supplementary document](supplement.md) for more details and some suggestions. In general, it is not advisable to rename files or directories unless necessary.
-
-**Option three**
-
-Use an archive file or disk image, there is nothing in this specification which prohibits this, but it is a complicated topic with pros and cons and is outside the scope of this document.
-
 *\*The representation_information directory name is reserved.*
 
 ### Representation information
@@ -587,83 +561,76 @@ The data/**\<representation_name\>**/representation_information/ directory is a 
 
 Environment objects and representation information networks are not supported by this specification. Further analysis and manual preparation will need to be conducted for these more complex examples of representation information.
 
-It is recommended that filenames within this directory be restricted to standard characters as defined in *File and directory naming* in the [supplementary document](supplement.md) unless maintaining these filenames is important for preservation or provenance. Note that there is no support in this specification for recording the original names of files within representation_information.
+It is recommended that filenames within this directory be restricted to standard characters as defined in *File and directory naming* in the [supplementary document](supplement.md) unless maintaining these filenames is important for preservation or provenance.
 
-## References
+## Sources
+The following were sources of information and inspiration:
+
 Anderson, R. (2013). The Moab Design for Digital Object Versioning. The Code4Lib Journal, 21. https://journal.code4lib.org/articles/8482
 
-Audit and certification—Digital Preservation Handbook. (n.d.). Retrieved September 5, 2024, from https://www.dpconline.org/handbook/institutional-strategies/audit-and-certification
+BagIt Profiles Specification 1.4.0. (n.d.). Retrieved from https://bagit-profiles.github.io/bagit-profiles-specification/
 
-BagIt Profiles Specification 1.4.0. (n.d.). Retrieved September 5, 2024, from https://bagit-profiles.github.io/bagit-profiles-specification/
+Common Specification for Information Packages. (n.d.). Retrieved from https://dilcis.eu/specifications/common-specification
 
-Boyko, A., Kunze, J. A., Littman, J., Madden, L., & Vargas, B. (2012). The BagIt File Packaging Format (V0.97) (Internet Draft No. draft-kunze-bagit-07). Internet Engineering Task Force. https://datatracker.ietf.org/doc/draft-kunze-bagit-07
+Congress, T. L. of. (n.d.). Preservation Schemes (all) - LC Linked Data Service: Authorities and Vocabularies | Library of Congress, from LC Linked Data Service: Authorities and Vocabularies (Library of Congress) [Webpage]. Retrieved from https://id.loc.gov/vocabulary/preservation.html
 
-Common Specification for Information Packages. (n.d.). Retrieved September 5, 2024, from https://dilcis.eu/specifications/common-specification
+Core terms defined by Darwin Core. (n.d.-a). Retrieved from http://rs.tdwg.org/dwc/terms.htm
 
-Congress, T. L. of. (n.d.). Preservation Schemes (all) - LC Linked Data Service: Authorities and Vocabularies | Library of Congress, from LC Linked Data Service: Authorities and Vocabularies (Library of Congress) [Webpage]. Retrieved September 5, 2024, from https://id.loc.gov/vocabulary/preservation.html
+Core terms defined by Darwin Core. (n.d.-b). Retrieved from https://rs.tdwg.org/dwc/terms.htm
 
-Consultative Committee for Space Data Systems. (2012). CCSDS 661.0-B-1: Cross Support Data Management – Service and Protocols (CCSDS 661.0-B-1). https://public.ccsds.org/Pubs/661x0b1.pdf
+Darwin Core. (n.d.). Retrieved from https://dwc.tdwg.org/
 
-Consultative Committee for Space Data Systems. (2021). CCSDS 651.0-G-1: Space Link Extension (SLE) – Service and Protocols (CCSDS 651.0-G-1). https://public.ccsds.org/Pubs/651x2g1.pdf
+DCMI Metadata Terms. (n.d.). DCMI. Retrieved from https://www.dublincore.org/specifications/dublin-core/dcmi-terms/
 
-Core terms defined by Darwin Core. (n.d.). Retrieved September 5, 2024, from http://rs.tdwg.org/dwc/terms.htm
+Digital Content Transfer Tools—Digital Preservation (Library of Congress). (n.d.). Retrieved from https://www.digitalpreservation.gov/series/challenge/data-transfer-tools.html
 
-DCMI Metadata Terms. (n.d.). DCMI. Retrieved September 5, 2024, from https://www.dublincore.org/specifications/dublin-core/dcmi-terms/
-
-Darwin Core. (n.d.). Retrieved September 5, 2024, from https://dwc.tdwg.org/
-
-Digital Content Transfer Tools—Digital Preservation (Library of Congress). (n.d.). Retrieved September 5, 2024, from https://www.digitalpreservation.gov/series/challenge/data-transfer-tools.html
-
-E-ARK SIP | Specification for Submission Information Packages. (n.d.). Retrieved September 5, 2024, from https://earksip.dilcis.eu/
+E-ARK SIP | Specification for Submission Information Packages. (n.d.). Retrieved from https://earksip.dilcis.eu/
 
 Filename. (2024). In Wikipedia. https://en.wikipedia.org/w/index.php?title=Filename&oldid=1241300520
 
 ISO 8601. (2024). In Wikipedia. https://en.wikipedia.org/w/index.php?title=ISO_8601&oldid=1243637756
 
+Kunze, J. A., Littman, J., Madden, L., Scancella, J., & Adams, C. (2018). The BagIt File Packaging Format (V1.0) (Request for Comments No. RFC 8493). Internet Engineering Task Force. https://doi.org/10.17487/RFC8493
+
 Langley, S. (2018). Digital Preservation Should Be More Holistic: A Digital Stewardship Approach. American Library Association. https://doi.org/10.17863/CAM.34317
 
-Library of Congress. (2017). PREMIS data dictionary for preservation metadata, version 3.0. Retrieved September 5, 2024, from https://www.loc.gov/standards/premis/v3/premis-3-0-final.pdf
+LibraryOfCongress/bagger: The Bagger application packages data files according to the BagIt specification. (n.d.). Retrieved from https://github.com/LibraryOfCongress/bagger
 
-Library of Congress. (2017). Understanding PREMIS (Version 3.0). Retrieved September 5, 2024, from https://www.loc.gov/standards/premis/understanding-premis.pdf
+LibraryOfCongress/bagit-python. (2025). [Python]. Library of Congress. https://github.com/LibraryOfCongress/bagit-python (Original work published 2013)
 
-LibraryOfCongress/bagger. (2024). [Java]. Library of Congress. https://github.com/LibraryOfCongress/bagger (Original work published 2014)
+Metadata Encoding and Transmission Standard (METS) Official Web Site | Library of Congress. (n.d.). Retrieved from https://www.loc.gov/standards/mets/
 
-LibraryOfCongress/bagit-python. (2024). [Python]. Library of Congress. https://github.com/LibraryOfCongress/bagit-python (Original work published 2013)
-
-METS: An Overview & Tutorial: Metadata Encoding and Transmission Standard (METS) OfficialWeb Site. (n.d.). Retrieved September 5, 2024, from https://www.loc.gov/standards/mets/METSOverview.v2.html#structmap
-
-Metadata Encoding and Transmission Standard (METS) Official Web Site | Library of Congress. (n.d.). Retrieved September 5, 2024, from https://www.loc.gov/standards/mets/
-
-OCFL Specifications. (n.d.). Oxford Common File Layout. Retrieved September 5, 2024, from https://ocfl.io/
+OCFL Specifications. (n.d.). Oxford Common File Layout. Retrieved from https://ocfl.io/
 
 OCLC, & Lavoie, B. (2014). The Open Archival Information System (OAIS) Reference Model: Introductory Guide (2nd Edition) (Second). Digital Preservation Coalition. https://doi.org/10.7207/twr14-02
 
-PREMIS: Preservation Metadata Maintenance Activity (Library of Congress). (n.d.). Retrieved September 5, 2024, from https://www.loc.gov/standards/premis/
-
 Parchive. (2024). In Wikipedia. https://en.wikipedia.org/w/index.php?title=Parchive&oldid=1237832538
 
-Preserving the Scholarly and Cultural Record. (n.d.). APTrust. Retrieved September 5, 2024, from https://aptrust.org/
+PREMIS Data Dictionary for Preservation Metadata, Version 3.0. (n.d.). https://www.loc.gov/standards/premis/v3/premis-3-0-final.pdf
 
-Producer-Archive Interface Specification (PAIS)—A Tutorial. (2016).
+PREMIS: Preservation Metadata Maintenance Activity (Library of Congress). (n.d.). Retrieved from https://www.loc.gov/standards/premis/
 
-Reference Model for an Open Archival Information System (OAIS). (2012).
+Preserving the Scholarly and Cultural Record. (n.d.). APTrust. Retrieved from https://aptrust.org/
 
-UTF-8. (2024). In Wikipedia. https://en.wikipedia.org/w/index.php?title=UTF-8&oldid=1243882536
+Producer-Archive Interface Specification (PAIS)—A Tutorial. (2016). https://ccsds.org/Pubs/651x2g1.pdf
+
+sdwheeler. (n.d.). New-Guid (Microsoft.PowerShell.Utility)—PowerShell. Retrieved from https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/new-guid?view=powershell-7.5
 
 Uniform Resource Name. (2024). In Wikipedia. https://en.wikipedia.org/w/index.php?title=Uniform_Resource_Name&oldid=1220954593
 
-Uniform Resource Names (URN) Namespaces. (n.d.). Retrieved September 5, 2024, from https://www.iana.org/assignments/urn-namespaces/urn-namespaces.xhtml
+Uniform Resource Names (URN) Namespaces. (n.d.). Retrieved from https://www.iana.org/assignments/urn-namespaces/urn-namespaces.xhtml
 
 Universally unique identifier. (2024). In Wikipedia. https://en.wikipedia.org/w/index.php?title=Universally_unique_identifier&oldid=1243853686
 
+UTF-8. (2024). In Wikipedia. https://en.wikipedia.org/w/index.php?title=UTF-8&oldid=1243882536
+
+uuidgen(1)—Linux manual page. (n.d.). Retrieved from https://man7.org/linux/man-pages/man1/uuidgen.1.html
+
 XLSX Transitional (Office Open XML), ISO 29500:2008-2016, ECMA-376, Editions 1-5. (2024, May 9). [Web page]. https://www.loc.gov/preservation/digital/formats/fdd/fdd000398.shtml
 
+XML Formatted Data Unit (XFDU) Structure and Construction Rules. (2008). https://ccsds.org/Pubs/661x0b1.pdf
+
 XML Schema (W3C). (2024). In Wikipedia. https://en.wikipedia.org/w/index.php?title=XML_Schema_(W3C)&oldid=1244107261
-
-sdwheeler. (n.d.). New-Guid (Microsoft.PowerShell.Utility)—PowerShell. Retrieved September 5, 2024, from https://learn.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/new-guid?view=powershell-7.4
-
-uuidgen(1)—Linux manual page. (n.d.). Retrieved September 5, 2024, from https://man7.org/linux/man-pages/man1/uuidgen.1.html
-
 
 ## Glossary
 

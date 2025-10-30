@@ -5,13 +5,22 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [0.6.0] - 2024-10-01
+## [0.7.0] - 2025-10-25
 
 ### Added
 
+- PREMIS_IE_events - repeating event_detail columns (also applies to PREMIS_Rep_events and PREMIS_Files_events)
+
 ### Changed
 
-### Deprecated
+- PREMIS_IE_events - renamed event_detail to event_detail1 (also applies to PREMIS_Rep_events and PREMIS_Files_events)
+- Rewrote filename standardisation information and moved it into the supplement.
+
+### Removed
+
+- PREMIS_Files_original_name - reserved by DP systems
+
+## [0.6.0] - 2024-10-01
 
 ### Removed
 
